@@ -29,7 +29,7 @@ MEDIA_DIR = os.path.join(BASE_DIR,'media')
 SECRET_KEY = 'django-insecure-nteb#l&=4^jn36p+6ftwzxb85^okiarl-c4s&hx#@o^(-u9str'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
