@@ -8,6 +8,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
     <link rel="stylesheet" href="{% static 'css/icons.css' %}">
+    <link rel="shortcut icon" href="{% static 'img/photolab-favicon.svg' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     <script src="https://code.jquery.com/jquery-3.7.1.js"
         integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
     <title>Home | PhotoLab</title>
@@ -28,11 +30,12 @@
                     <img src="{% static 'img/photo-lab-logo.svg' %}" class="h-6" alt="Small logo">
                 </a>
 
-                
+
                 <div class="navbar-inner">
-                    <a class="py-3 px-4 inline-flex justify-center items-center gap-2 rounded-md border border-transparent font-semibold bg-blue-500 text-white hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all text-sm" href="#edit-banner">
+                    <a class="py-3 px-4 inline-flex justify-center items-center gap-2 rounded-md border border-transparent font-semibold bg-blue-500 text-white hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all text-sm"
+                        href="#edit-banner">
                         Edit a Photo</a>
-    
+
                     <div class="hs-dropdown relative">
                         <button type="button" id="button-toggle-profile" class="nav-link p-2 ms-auto">
                             <span class="sr-only">Profile Menu Offcanvas Button</span>
@@ -40,16 +43,14 @@
                                 <p class="text-2xl">{{ user.username|slice:":1" }}</p>
                             </span>
                         </button>
-    
+
                         <div
                             class="hs-dropdown-menu transition-[opacity,margin] duration hs-dropdown-open:opacity-100 opacity-0 hidden bg-white shadow py-2 z-10">
-                            <p class="flex items-center gap-x-3.5 py-2 px-3 text-lg text-gray-800"
-                                href="javascript:;">
+                            <p class="flex items-center gap-x-3.5 pt-2 px-3 text-lg text-gray-800" href="javascript:;">
                                 {{ user }}
                             </p>
-                            <p class="flex items-center gap-x-3.5 py-2 px-3 text-sm"
-                            href="javascript:;">
-                            {{ user.email }}
+                            <p class="flex items-center gap-x-3.5 px-3 text-sm" href="javascript:;">
+                                {{ user.email }}
                             </p>
                             <hr class="my-2 border-gray-200">
                             <a class="flex items-center gap-x-3.5 py-2 px-3 text-sm text-gray-800 hover:bg-gray-100"
@@ -57,7 +58,8 @@
                                 {% if user.is_authenticated %}
                                 <form method="post" action="{% url 'logout' %}">
                                     {% csrf_token %}
-                                    <button type="submit">Logout</button>
+                                    <button style="width: 100%;" type="submit"><i class="mdi mdi-logout"></i>
+                                        Logout</button>
                                 </form>
                                 {% else %}
                                 <a href="{% url 'login' %}">Login</a>
@@ -71,9 +73,10 @@
             <!-- Topbar End -->
 
             <main class="p-6">
-                <div id="edit-banner" class = "edit-banner" style="background-image: url({% static 'img/banner-bg-2.svg' %})">
-                    <h1 class = "edit-heading">Hello {{ user }}, what will you edit today?</h1>
-                    
+                <div id="edit-banner" class="edit-banner"
+                    style="background-image: url({% static 'img/banner-bg-2.svg' %})">
+                    <h1 class="edit-heading">Hello {{ user }}, what will you edit today?</h1>
+
                     <div class="button-container">
                         <div class="">
                             <button type="button"
@@ -81,7 +84,7 @@
                                 data-hs-overlay="#hs-slide-up-animation-modal">
                                 Upload Your Own Photo <i class="mdi mdi-arrow-right"></i>
                             </button>
-    
+
                             <div id="hs-slide-up-animation-modal"
                                 class="hs-overlay hidden w-full h-full fixed top-0 left-0 z-[60] overflow-x-hidden overflow-y-auto">
                                 <div
@@ -104,7 +107,9 @@
                                             </button>
                                         </div>
                                         <div class="p-4 overflow-y-auto">
-                                            <form id="submitPhoto" method="POST" enctype="multipart/form-data">
+                                            <form id="submitPhoto" method="POST"
+                                                style="display: flex; flex-direction: column; gap: 1rem;"
+                                                enctype="multipart/form-data">
                                                 {% csrf_token %}
                                                 {{ form|crispy }}
                                             </form>
@@ -115,7 +120,8 @@
                                                 data-hs-overlay="#hs-slide-up-animation-modal">
                                                 Close
                                             </button>
-                                            <button type="submit" form="submitPhoto" class="py-3 px-4 inline-flex justify-center items-center gap-2 rounded-md border border-transparent font-semibold bg-blue-500 text-white hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all text-sm"
+                                            <button type="submit" form="submitPhoto"
+                                                class="py-3 px-4 inline-flex justify-center items-center gap-2 rounded-md border border-transparent font-semibold bg-blue-500 text-white hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all text-sm"
                                                 href="#">
                                                 Upload Photo
                                             </button>
@@ -126,28 +132,43 @@
                         </div>
 
                         <a href="{% url 'upload_unsplash' %}"
-                        class="py-3 px-4 inline-flex justify-center items-center gap-2 rounded-md border border-transparent font-semibold banner-buttons hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all text-sm">
-                        Upload Using Unsplash <i class="mdi mdi-arrow-right"></i></a>
+                            class="py-3 px-4 inline-flex justify-center items-center gap-2 rounded-md border border-transparent font-semibold banner-buttons hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all text-sm">
+                            Upload Using Unsplash <i class="mdi mdi-arrow-right"></i></a>
                     </div>
                 </div>
 
 
-                <h2 class = "card-title mb-8 mt-8">Your Edits</h2>
+                <h2 class="card-title mb-8 mt-8">Your Edits</h2>
                 {% regroup photo_list by modified_date|date:"d F Y" as grouped_photos %}
                 <ul class="home-photo-list">
                     {% for group in grouped_photos %}
-                        {% for photo in group.list %}
-                            <li>
-                                <a href="{{ photo.id }}">
-                                    <div class="image-main-container transition-all">
-                                        <div class="image-container transition-all">
-                                            <img src="{{ photo.image.url }}">
-                                        </div>
-                                        <p class="photo-list-header transition-all">{{ photo.name }}</p>
+                    {% for photo in group.list %}
+                    <li>
+                        <div class="image-main-container transition-all">
+                            <div class="image-container transition-all">
+                                <a href="{{ photo.id }}"><img src="{{ photo.image.url }}"></a>
+                            </div>
+                            <div class="photo-word-container">
+                                <p class="photo-list-header transition-all"><a href="{{ photo.id }}">{{ photo.name }}</a></p>
+                                
+                                <div class="hs-dropdown relative">
+                                    <button type="button" class="hs-dropdown-toggle hover:text-gray-700 transition-all">
+                                        <i class="fa-solid fa-lg fa-ellipsis"></i>
+                                    </button>
+
+                                    <div
+                                        class="hs-dropdown-menu transition-[opacity,margin] duration hs-dropdown-open:opacity-100 opacity-0 hidden bg-white shadow py-2 z-10">
+                                        <a class="flex items-center gap-x-3.5 py-2 px-3 text-sm text-gray-800 hover:bg-gray-100"
+                                            href="{% url 'delete_photo' photo.id %}">
+                                            Delete
+                                        </a>
                                     </div>
-                                </a>
-                            </li>
-                        {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                        {% comment %} {% url 'delete_photo' photo.id %} {% endcomment %}
+                    </li>
+                    {% endfor %}
                     {% endfor %}
                 </ul>
             </main>

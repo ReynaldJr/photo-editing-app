@@ -13,6 +13,7 @@ from django.core.files.base import ContentFile
 from PIL import Image
 from io import BytesIO
 from django.contrib.auth.models import User
+from django.http import Http404
 # Create your views here.
 
     
@@ -23,7 +24,6 @@ def edit(request, id):
     form = EditPhotoUpload(request.POST or None, request.FILES or None, instance=photo)
     
     if photo in request.user.photo.all():
-            
         if request.headers.get('x-requested-with') == 'XMLHttpRequest':
             pic_id = json.loads(request.POST.get('id'))
             action = request.POST.get('action')
@@ -43,7 +43,13 @@ def edit(request, id):
             return JsonResponse({'data': data})
         
         return render(request, "edit.html", {"name": photo, "photo": photo, 'form': form})
-    return render(request, "index.html", {})
+    raise Http404
+
+@login_required(login_url="login")
+def delete_photo(request, id):
+    photo = Photo.objects.get(id = id)
+    photo.delete()
+    return redirect('upload')
 
 
 @login_required(login_url="login")
