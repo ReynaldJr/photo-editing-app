@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+{% load static %} {% load crispy_forms_tags %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/icons.css' %}">
+    <title>Upload Unsplash</title>
+</head>
+<body>
+    <div class="unsplash-container">
+        <div class = "heading-unsplash">
+            <a href="{% url 'upload' %}" id="button-toggle-menu" class="nav-link p-2">
+                <span class="flex items-center justify-center h-6 w-6">
+                    <i class="mdi mdi-arrow-left mdi-18px"></i>
+                </span>
+            </a>
+            <!-- Page Title -->
+            <h1 class="text-slate-900 text-lg font-medium">Upload Using Unsplash</h1>
+        </div>
+        <div class = "unsplash-search-container">
+            <form action="" method="GET">
+                <input required type="search" name="search" value="{{request.GET.search}}" placeholder="Search for images (Ex: Mountain, Trees, Sea, etc.)">
+                <select name="quantity" class="form-select mx-3" style="width: 100px; border-radius: 0;">
+                    <option value="1" {% if request.GET.quantity == '1' %}selected {% endif %}>1</option>
+                    <option value="3" {% if request.GET.quantity == '3' %}selected {% endif %}>3</option>
+                    <option value="5" {% if request.GET.quantity == '5' %}selected {% endif %}>5</option>
+                    <option value="10" {% if request.GET.quantity == '10' %}selected {% endif %}>10</option>
+                </select>
+                <button class="py-3 px-4 inline-flex justify-center items-center gap-2 rounded-md border border-transparent font-semibold bg-blue-500 text-white hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all text-sm">Search</button>
+            </form>
+        </div>
+    </div>
+
+    <div class = "unsplash-container">
+        <div class="unsplash-image-container">
+            <form id = "unsplash-images" action="{% url 'upload_unsplash' %}" method="POST">
+                {% csrf_token %}
+                <div class="unsplash-images-inner-container">
+                    {% for image in images %}
+                        <div class="unsplash-images-item">
+                            <label>
+                                <input type="radio" name="selected_image" value="{{ image }}" required>
+                                <img src="{{ image }}" class="transition-all" alt="">
+                            </label>
+                        </div>
+                    {% endfor %}
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="unsplash-submit-container">
+        <div class = "unsplash-container">
+            <div class = "unsplash-submit-inner-container">
+                <input form="unsplash-images" type="text" name="image_name" placeholder="Enter image name" class="form-control" required>
+                <button form = "unsplash-images" type="submit" class="py-3 px-4 inline-flex justify-center items-center gap-2 rounded-md border border-transparent font-semibold bg-blue-500 text-white hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all text-sm" id="submit-button" disabled>Submit</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const radioButtons = document.querySelectorAll('input[name="selected_image"]');
+            const submitButton = document.getElementById('submit-button');
+            
+            radioButtons.forEach(radio => {
+                radio.addEventListener('change', function() {
+                    submitButton.disabled = false;
+                });
+            });
+        });
+    </script>
+</body>
+</html>

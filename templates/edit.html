@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+{% load static %} {% load crispy_forms_tags %}
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/icons.css' %}">
+    <script src="https://code.jquery.com/jquery-3.7.1.js"
+        integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+    <title>{{ photo.name }} | PhotoApp</title>
+</head>
+
+<body>
+    <div class="app-wrapper">
+        <div class="app-content">
+
+            <!-- Topbar Start -->
+            <header class="app-header flex items-center px-5 gap-4">
+
+                <!-- Sidenav Menu Toggle Button -->
+                <a href="{% url 'upload' %}" id="button-toggle-menu" class="nav-link p-2">
+                    <span class="flex items-center justify-center h-6 w-6">
+                        <i class="mdi mdi-arrow-left mdi-18px"></i>
+                    </span>
+                </a>
+
+                <!-- Page Title -->
+                <h1 class="text-slate-900 text-lg font-medium">{{ photo.name }}</h1>
+
+                <div class=" p-2 ms-auto">
+                    <a id="download-photo" class="py-3 px-4 inline-flex justify-center items-center gap-2 rounded-md border border-transparent font-semibold bg-blue-500 text-white hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all text-sm">
+                        Download Photo</a>
+                </div>
+            </header>
+            <!-- Topbar End -->
+
+            <main class="edit-container">
+                <div class="profile-menu">
+                    <div class="flex flex-col items-center h-full gap-4 py-10 px-3 button-inner-container">
+                        <form id="image-form" class="image-form" style="width:100%">
+                            {% csrf_token %} {{ form|crispy }}
+                            <div id="btn-box" class="not-visible">
+                                <button type="submit" data-filter="WARM">
+                                    <div>
+                                        <div class = "edit-main-container transition-all">
+                                            <div class = "edit-container transition-all">
+                                                <img class = "transition-all" src=" {% static 'img/tree-warm.png' %} ">
+                                            </div>
+                                            <p class="edit-list-header">Warm</p>
+                                        </div>
+                                    </div>
+                                
+                                </button>
+
+                                <button type="submit" data-filter="COLD">
+                                    <div>
+                                        <div class = "edit-main-container transition-all">
+                                            <div class = "edit-container transition-all">
+                                                <img class = "transition-all" src=" {% static 'img/tree-cold.png' %} ">
+                                            </div>
+                                            <p class="edit-list-header">Cold</p>
+                                        </div>
+                                    </div>
+                                </button>
+
+                                <button type="submit" data-filter="COLORIZED">
+                                    <div>
+                                        <div class = "edit-main-container transition-all">
+                                            <div class = "edit-container transition-all">
+                                                <img class = "transition-all" src=" {% static 'img/tree-colorized.png' %} ">
+                                            </div>
+                                            <p class="edit-list-header">Colorized</p>
+                                        </div>
+                                    </div>
+                                </button>
+
+                                <button type="submit" data-filter="GRAYSCALE">
+                                    <div>
+                                        <div class = "edit-main-container transition-all">
+                                            <div class = "edit-container transition-all">
+                                                <img class = "transition-all" src=" {% static 'img/tree-grayscale.png' %} ">
+                                            </div>
+                                            <p class="edit-list-header">Grayscale</p>
+                                        </div>
+                                    </div>
+                                </button>
+
+                                <button type="submit" data-filter="BLURRED">
+                                    <div>
+                                        <div class = "edit-main-container transition-all">
+                                            <div class = "edit-container transition-all">
+                                                <img class = "transition-all" src=" {% static 'img/tree-blurred.png' %} ">
+                                            </div>
+                                            <p class="edit-list-header">Blurred</p>
+                                        </div>
+                                    </div>
+                                </button>
+
+                                <button type="submit" data-filter="SEPIA">
+                                    <div>
+                                        <div class = "edit-main-container transition-all">
+                                            <div class = "edit-container transition-all">
+                                                <img class = "transition-all" src=" {% static 'img/tree-sepia.png' %} ">
+                                            </div>
+                                            <p class="edit-list-header">Sepia</p>
+                                        </div>
+                                    </div>
+                                </button>
+
+                                
+                                <button type="submit" data-filter="SKETCH">
+                                    <div>
+                                        <div class = "edit-main-container transition-all">
+                                            <div class = "edit-container transition-all">
+                                                <img class = "transition-all" src=" {% static 'img/tree-sketch.png' %} ">
+                                            </div>
+                                            <p class="edit-list-header">Sketch</p>
+                                        </div>
+                                    </div>
+                                </button>
+
+                                <button type="submit" data-filter="SHARPEN">
+                                    <div>
+                                        <div class = "edit-main-container transition-all">
+                                            <div class = "edit-container transition-all">
+                                                <img class = "transition-all" src=" {% static 'img/tree-sharpen.png' %} ">
+                                            </div>
+                                            <p class="edit-list-header">Sharpen</p>
+                                        </div>
+                                    </div>
+                                </button>
+
+                                <button type="submit" data-filter="BINARY">
+                                    <div>
+                                        <div class = "edit-main-container transition-all">
+                                            <div class = "edit-container transition-all">
+                                                <img class = "transition-all" src=" {% static 'img/tree-binary.png' %} ">
+                                            </div>
+                                            <p class="edit-list-header">Binary</p>
+                                        </div>
+                                    </div>
+                                </button>
+
+                                <button type="submit" data-filter="INVERT">
+                                    <div>
+                                        <div class = "edit-main-container transition-all">
+                                            <div class = "edit-container transition-all">
+                                                <img class = "transition-all" src=" {% static 'img/tree-invert.png' %} ">
+                                            </div>
+                                            <p class="edit-list-header">Invert</p>
+                                        </div>
+                                    </div>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class = "upload-main">
+                    <div class="img-box">
+                        <img src="{{ photo.image.url }}" id="img-pic" />
+                    </div>
+                </div>
+            </main>
+        </div>
+
+        <script>
+            const photoName = "{{ photo.name }}";
+            const photoImage = "{{ photo.image.url }}";
+            const photoID = "{{ photo.id }}";
+
+            const photoNameForm = document.getElementById("div_id_name");
+            const photoImageForm = document.getElementById("div_id_image");
+
+            photoNameForm.style.display = "none";
+            photoImageForm.style.display = "none";
+
+            // Set download link and filename
+            const downloadBtn = document.getElementById("download-photo");
+            downloadBtn.href = photoImage;
+            downloadBtn.download = "{{ photo.name }}" + ".png";
+        </script>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/camanjs/4.1.2/caman.full.min.js"></script>
+
+        <script src="{% static 'js/edit.js' %}"></script>
+</body>
+
+</html>

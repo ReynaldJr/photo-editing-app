@@ -1,0 +1,1 @@
+web gunicorn photo_editing_app.wsgi:application --log-file -
