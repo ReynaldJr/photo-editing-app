@@ -29,7 +29,7 @@ MEDIA_DIR = os.path.join(BASE_DIR,'media')
 SECRET_KEY = 'django-insecure-nteb#l&=4^jn36p+6ftwzxb85^okiarl-c4s&hx#@o^(-u9str'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['*']
 
@@ -164,3 +164,12 @@ UNSPLASH_CLIENT_ID = os.environ.get("hTL8A9nc-W5h1QxXMXKY-AP7froX23W0l01lRks4T60
 
 django_heroku.settings(locals())
 
+AWS_ACCESS_KEY_ID = 'AKIAVVKH7VVUNUQFG7KE'
+AWS_SECRET_ACCESS_KEY = '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'
+AWS_STORAGE_BUCKET_NAME = 'bucketeer-ddfb671d-49c9-4dd8-8bf3-bd093e8ae4aa'
+AWS_S3_SIGNATURE_NAME = 's3v4',
+AWS_S3_REGION_NAME = 'eu-west-1'
+AWS_S3_FILE_OVERWRITE = False
+AWS_DEFAULT_ACL =  None
+AWS_S3_VERITY = True
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
