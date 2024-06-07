@@ -95,11 +95,11 @@ WSGI_APPLICATION = 'photo_editing_app.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': config('NAME'),
-        'USER': config('USER'),
-        'PASSWORD': config('PASSWORD'),
-        'HOST': config('HOST'),
-        'PORT': config('PORT'),
+        'NAME': 'dbtdf8p21smo2o',
+        'USER': 'u26jc1o23vgn1i',
+        'PASSWORD': 'p627c5450d7bcd6b01b3f3522434ecae01839ffe14fb40333ee360adb9f823d8b',
+        'HOST': 'ccaml3dimis7eh.cluster-czz5s0kz4scl.eu-west-1.rds.amazonaws.com',
+        'PORT': '5432',
     }
 }
 
