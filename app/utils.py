@@ -8,16 +8,14 @@ from scipy.interpolate import UnivariateSpline
 # Put the Following
 # Warm
 # Cold
-# Invert
-# Binary
 # Blurred
+# Colorized
 # Grayscale
 # Sepia
-# Vignette
 # Sketch
-# Stylization
 # Sharpen
-# HDR
+# Invert
+# Binary
 
 
 def get_filtered_image(image, action):
@@ -123,25 +121,6 @@ def get_filtered_image(image, action):
         # Merge the sepia RGB channels with the original alpha channel
         filtered = cv2.merge((img_sepia[:, :, 0], img_sepia[:, :, 1], img_sepia[:, :, 2], alpha_channel))
         
-    # VIGNETTE FILTER
-    elif action == 'VIGNETTE':
-        level = 2
-        height, width = img.shape[:2]  
-        
-        # Generate vignette mask using Gaussian kernels.
-        X_resultant_kernel = cv2.getGaussianKernel(width, width/level)
-        Y_resultant_kernel = cv2.getGaussianKernel(height, height/level)
-            
-        # Generating resultant_kernel matrix.
-        kernel = Y_resultant_kernel * X_resultant_kernel.T 
-        mask = kernel / kernel.max()
-        
-        filtered = np.copy(img)
-            
-        # Applying the mask to each channel in the input image.
-        for i in range(4):
-            filtered[:,:,i] = filtered[:,:,i] * mask
-
     # Sketch
     elif action == 'SKETCH':
         gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
@@ -149,30 +128,6 @@ def get_filtered_image(image, action):
         blurred = cv2.GaussianBlur(inverted_gray, (21, 21), 0)
         inverted_blurred = cv2.bitwise_not(blurred)
         filtered = cv2.divide(gray, inverted_blurred, scale=256.0)
-
-    # Stylization
-    elif action == 'STYLIZATION':
-# Ensure the image is in the correct format (8-bit, 3-channel)
-        if img.dtype != np.uint8:
-            img = cv2.convertScaleAbs(img)
-
-        # Convert to gray scale
-        gray = cv2.cvtColor(img, cv2.COLOR_RGB2GRAY)
-        
-        # Apply median blur
-        gray = cv2.medianBlur(gray, 7)
-        
-        # Detect edges using adaptive threshold
-        edges = cv2.adaptiveThreshold(gray, 255, cv2.ADAPTIVE_THRESH_MEAN_C, cv2.THRESH_BINARY, 9, 2)
-        
-        # Apply bilateral filter to remove noise, use BGR format for bilateral filter
-        img_bgr = cv2.cvtColor(img, cv2.COLOR_RGB2BGR)
-        color = cv2.bilateralFilter(img_bgr, 9, 75, 75)
-        
-        # Combine edges and color
-        edges = cv2.cvtColor(edges, cv2.COLOR_GRAY2BGR)
-        filtered = cv2.bitwise_and(color, edges)
-        filtered = cv2.cvtColor(filtered, cv2.COLOR_BGR2RGB)  # Convert back to RGB for consistency
 
     # Sharpen
     elif action == 'SHARPEN':
@@ -199,11 +154,6 @@ def get_filtered_image(image, action):
 
         # Merge the sharpened RGB channels with the original alpha channel
         filtered = cv2.merge((red_channel_sharpened, green_channel_sharpened, blue_channel_sharpened, alpha_channel))
-
-    # HDR
-    elif action == 'HDR':
-        # Using edgePreservingFilter for a more balanced HDR effect
-        filtered = cv2.edgePreservingFilter(img, flags=1, sigma_s=64, sigma_r=0.25)
 
             
     return filtered

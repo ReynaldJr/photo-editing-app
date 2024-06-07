@@ -12,15 +12,13 @@ ACTION_CHOICES = {
     ('INVERT', 'invert'), 
     ('SHARPEN', 'sharpen'), 
     ('BINARY', 'binary'), 
-    ('VIGNETTE', 'vignette'), 
     ('GRAYSCALE', 'grayscale'), 
-    ('STYLIZATION', 'stylization'), 
     ('BLURRED', 'blurred'), 
     ('SEPIA', 'sepia'), 
     ('SKETCH', 'sketch'), 
     ('COLORIZED', 'colorized'), 
-    ('COLD', 'cold'), 
-    ('HDR', 'hdr'),
+    ('COLD', 'cold'),
+    ('WARM', 'warm'),  
 }
 
 class Photo(models.Model):
