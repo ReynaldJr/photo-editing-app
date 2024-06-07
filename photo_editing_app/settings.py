@@ -14,6 +14,7 @@ from pathlib import Path
 import os
 import django_heroku
 import dj_database_url
+from decouple import config
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -93,12 +94,12 @@ WSGI_APPLICATION = 'photo_editing_app.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'dbtdf8p21smo2o',
-        'USER': 'u26jc1o23vgn1i',
-        'PASSWORD': 'p627c5450d7bcd6b01b3f3522434ecae01839ffe14fb40333ee360adb9f823d8b',
-        'HOST': 'ccaml3dimis7eh.cluster-czz5s0kz4scl.eu-west-1.rds.amazonaws.com',
-        'PORT': '5432',
+        'ENGINE': config('ENGINE'),
+        'NAME': config('NAME'),
+        'USER': config('USER'),
+        'PASSWORD': config('PASSWORD'),
+        'HOST': config('HOST'),
+        'PORT': config('PORT'),
     }
 }
 
@@ -164,11 +165,11 @@ UNSPLASH_CLIENT_ID = os.environ.get("hTL8A9nc-W5h1QxXMXKY-AP7froX23W0l01lRks4T60
 
 django_heroku.settings(locals())
 
-AWS_ACCESS_KEY_ID = 'AKIAVVKH7VVUNUQFG7KE'
-AWS_SECRET_ACCESS_KEY = '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'
-AWS_STORAGE_BUCKET_NAME = 'bucketeer-ddfb671d-49c9-4dd8-8bf3-bd093e8ae4aa'
+AWS_ACCESS_KEY_ID = config('AWS_ACCESS_KEY_ID')
+AWS_SECRET_ACCESS_KEY = config('AWS_SECRET_ACCESS_KEY')
+AWS_STORAGE_BUCKET_NAME = config('AWS_STORAGE_BUCKET_NAME')
 AWS_S3_SIGNATURE_NAME = 's3v4',
-AWS_S3_REGION_NAME = 'eu-west-1'
+AWS_S3_REGION_NAME = config('AWS_S3_REGION_NAME')
 AWS_S3_FILE_OVERWRITE = False
 AWS_DEFAULT_ACL = None
 AWS_S3_VERITY = True
